@@ -20,18 +20,7 @@ function Client (base, queryParams) {
       if (res.statusCode !== 200) return callback(new Error('Error ' + res.statusCode))
 
       var body = res.body
-      try {
-        typeforce({
-          status: 'String',
-          data: '?Object'
-        }, body, true)
-      } catch (e) {
-        return callback(e)
-      }
-
-      if (body.status !== 'success') return callback(new Error(body.data && body.data.msg || body.data))
-
-      callback(null, deconstruct ? body.data[0] : body.data)
+      callback(null, deconstruct ? body[0] : body)
     })
   }
 
